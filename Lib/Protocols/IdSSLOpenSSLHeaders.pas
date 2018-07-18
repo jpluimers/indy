@@ -7040,6 +7040,8 @@ const
   SSL_CTRL_SET_TLS_EXT_HEARTBEAT_NO_REQUESTS = 87;
     {$endif}
   {$ENDIF}
+  {$EXTERNALSYM SSL_CTRL_SET_ECDH_AUTO}
+  SSL_CTRL_SET_ECDH_AUTO = 94;
 
   {$EXTERNALSYM DTLS_CTRL_GET_TIMEOUT}
   DTLS_CTRL_GET_TIMEOUT	= 73;
@@ -18278,6 +18280,8 @@ function SSL_CTX_set_tmp_rsa(ctx  : PSSL_CTX; rsa : PRSA) : TIdC_LONG;
 function SSL_CTX_set_tmp_dh(ctx : PSSL_CTX; dh : PDH) : TIdC_LONG;
  {$EXTERNALSYM SSL_CTX_set_tmp_ecdh}
 function SSL_CTX_set_tmp_ecdh(ctx : PSSL_CTX; ecdh : PEC_KEY) : TIdC_LONG;
+ {$EXTERNALSYM SSL_CTX_set_ecdh_auto}
+function SSL_CTX_set_ecdh_auto(ctx : PSSL_CTX; m : TIdC_LONG) : TIdC_LONG;
  {$EXTERNALSYM SSL_need_tmp_RSA}
 function SSL_need_tmp_RSA(ssl : PSSL) : TIdC_LONG;
  {$EXTERNALSYM SSL_set_tmp_rsa}
@@ -24865,6 +24869,12 @@ function SSL_CTX_set_tmp_ecdh(ctx : PSSL_CTX; ecdh : PEC_KEY) : TIdC_LONG;
  {$IFDEF USE_INLINE} inline; {$ENDIF}
 begin
 	Result := SSL_CTX_ctrl(ctx,SSL_CTRL_SET_TMP_ECDH,0,ecdh);
+end;
+
+function SSL_CTX_set_ecdh_auto(ctx : PSSL_CTX; m : TIdC_LONG) : TIdC_LONG;
+ {$IFDEF USE_INLINE} inline; {$ENDIF}
+begin
+    Result := SSL_CTX_ctrl(ctx,SSL_CTRL_SET_ECDH_AUTO,m,nil);
 end;
 
 function SSL_need_tmp_RSA(ssl : PSSL) : TIdC_LONG;
